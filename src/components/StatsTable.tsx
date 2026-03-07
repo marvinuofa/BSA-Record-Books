@@ -96,9 +96,11 @@ const fetchTeams = async (
         <div className="max-w-6xl mx-auto px-4 py-8">
     
             {/* Filters */}
-            <div className="flex gap-4 mb-6">
+            <div className="mb-6 flex items-center justify-between gap-4">
+            <h1 className="text-2xl font-bold ">Stats</h1>
 
             {/* Year */}
+            <div className="flex gap-4">
             <select
                 className="border rounded px-3 py-2"
                 value={year}
@@ -155,7 +157,7 @@ const fetchTeams = async (
                 ))}
                 </select>
             )}
-
+            </div>
         </div>
   
         {/* Table */}
@@ -445,8 +447,6 @@ const fetchTeams = async (
             </div>
         }
        
-   
-  
       </div>
     )
   }

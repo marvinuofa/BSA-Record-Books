@@ -4,6 +4,7 @@ import { Navbar } from './components/Navbar'
 import { Leaderboard } from './pages/Leaderboard'
 import { Players } from './pages/Players'
 import { Stats } from './pages/Stats'
+import { Fixtures } from './pages/Fixtures'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route path="/players" element={<Players />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
             <Route path="/stats" element={<Stats />} />
+            <Route path="/fixtures" element={<Fixtures />} />
           </Routes>
         </main>
 

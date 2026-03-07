@@ -66,9 +66,10 @@ const fetchTeams = async (
     return data as Sport[]
   }
 
-  export const Table = () => {
+  export const FixturesTable = () => {
     const [year, setYear] = useState(new Date().getFullYear())
     const [sport, setSport] = useState("Soccer")
+    const [tournamentStage, setTournamentStage] = useState("Groupstage")
   
     const { data: teams, isLoading, error } = useQuery({
       queryKey: ["teams", year, sport],
@@ -93,7 +94,7 @@ const fetchTeams = async (
 
         {/* Filters */}
         <div className="mb-6 flex items-center justify-between gap-4">
-          <h1 className="text-2xl font-bold ">Leaderboard</h1>
+          <h1 className="text-2xl font-bold ">Fixtures</h1>
 
           <div className="flex gap-4">
             <select
@@ -119,34 +120,51 @@ const fetchTeams = async (
                 </option>
               ))}
             </select>
+            <select
+                className="rounded border px-3 py-2"
+                value={tournamentStage}
+                onChange={(e) => setTournamentStage(e.target.value)}
+                >
+                <option value="Groupstage">Groupstage</option>
+                <option value="Playoffs">Playoffs</option>
+            </select>
           </div>
+
         </div>
   
         {/* Table */}
+        {(tournamentStage === "Groupstage")?(
         <div className="overflow-x-auto">
           <table className="w-full border-collapse shadow-sm">
-          
-            <thead className="bg-[#ffcc08] text-left text-black">
+            <thead className="bg-[#ffcc08] text-center text-black">
                 <tr>
-                    <th className="px-4 py-3">Team</th>
-                    <th className="px-3 py-3">W</th>
-                    <th className="px-3 py-3">L</th>
-                    <th className="px-3 py-3">D</th>
-                    <th className="px-3 py-3">PF</th>
-                    <th className="px-3 py-3">PA</th>
-                    <th className="px-3 py-3">Diff</th>
-                    <th className="px-3 py-3 font-semibold">Pts</th>
+                    <th className="px-4 py-2">Groupstage</th>
                 </tr>
-                </thead>
-  
+            </thead>
+
             <tbody>
-              {teams?.map((team) => (
-                <TableItem key={team.id} team={team} />
-              ))}
+                Add fixtures
             </tbody>
   
           </table>
-        </div>
+        </div>):
+        (
+            <div className="overflow-x-auto">
+                <table className="w-full border-collapse shadow-sm">
+                
+                <thead className="bg-[#ffcc08] text-center text-black">
+                    <tr>
+                        <th className="px-4 py-2">Playoffs</th>
+                    </tr>
+                    </thead>
+
+                <tbody>
+                    Add fixtures
+                </tbody>
+
+                </table>
+            </div>)
+        }
   
       </div>
     )
