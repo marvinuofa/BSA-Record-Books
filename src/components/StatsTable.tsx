@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { ArrowRightIcon } from "@heroicons/react/24/solid"
 import { useQuery } from "@tanstack/react-query"
 import { supabase } from "../supabase-client"
 import { TableItem } from "./TableItem"
@@ -160,8 +159,10 @@ const fetchTeams = async (
         </div>
   
         {/* Table */}
+
+        {/*Combine Stats for all players */}
         {(competition === "Combine")? 
-            <div className="overflow-x-auto">
+        <div className="overflow-x-auto">
         <table className="w-full table-fixed border-collapse shadow-sm">
   
             <thead className="text-[#ffcc08] text-sm">
@@ -272,32 +273,152 @@ const fetchTeams = async (
 
             </table>
             </div> 
-            :(statCategory === "Players")?
+            
+            :(statCategory === "Players" )? (sport === "Soccer")? // {/*Toutnament stats for players who play soccer*/}
 
             <div className="overflow-x-auto">
-            <table className="w-full border-collapse shadow-sm">
-            
-                <thead className="bg-[#ffcc08] text-left text-black">
-                    <tr>
-                        <th className="px-4 py-3">Player</th>
-                        <th className="px-3 py-3">W</th>
-                        <th className="px-3 py-3">L</th>
-                        <th className="px-3 py-3">D</th>
-                        <th className="px-3 py-3">PF</th>
-                        <th className="px-3 py-3">PA</th>
-                        <th className="px-3 py-3">Diff</th>
-                        <th className="px-3 py-3 font-semibold">Pts</th>
-                    </tr>
-                    </thead>
-    
-                <tbody>
+             <table className="w-full table-fixed border-collapse shadow-sm">
+  
+            <thead className="text-[#ffcc08] text-sm">
+                <tr>
+                    <Link to="/" className="flex items-center">
+                        Goals
+                        <svg
+                            width="16"
+                            height="11"
+                            viewBox="-19.04 0 75.804 75.804"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <g transform="translate(-831.568 -384.448)">
+                            <path
+                                d="M833.068,460.252a1.5,1.5,0,0,1-1.061-2.561l33.557-33.56a2.53,2.53,0,0,0,0-3.564l-33.557-33.558a1.5,1.5,0,0,1,2.122-2.121l33.556,33.558a5.53,5.53,0,0,1,0,7.807l-33.557,33.56A1.5,1.5,0,0,1,833.068,460.252Z"
+                                fill="#ffcc08"
+                            />
+                            </g>
+                        </svg>
+                    </Link>
+                </tr>
+            </thead>
+
+            <tbody>
                 {teams?.map((team) => (
-                    <TableItem key={team.id} team={team} />
+                <PlayerItem />
                 ))}
-                </tbody>
-    
+            </tbody>
+
+            <thead className="text-[#ffcc08] text-sm">
+                <tr>
+                <Link to="/" className="flex items-center ">
+                        Assists
+                        <svg
+                            width="16"
+                            height="11"
+                            viewBox="-19.04 0 75.804 75.804"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <g transform="translate(-831.568 -384.448)">
+                            <path
+                                d="M833.068,460.252a1.5,1.5,0,0,1-1.061-2.561l33.557-33.56a2.53,2.53,0,0,0,0-3.564l-33.557-33.558a1.5,1.5,0,0,1,2.122-2.121l33.556,33.558a5.53,5.53,0,0,1,0,7.807l-33.557,33.56A1.5,1.5,0,0,1,833.068,460.252Z"
+                                fill="#ffcc08"
+                            />
+                            </g>
+                        </svg>
+                    </Link>
+                </tr>
+            </thead>
+
+            <tbody>
+                {teams?.map((team) => (
+                <PlayerItem />
+                ))}
+            </tbody>
+
+            <thead className="text-[#ffcc08] text-sm">
+                <tr>
+                <Link to="/" className="flex items-center ">
+                        Red Cards
+                        <svg
+                            width="16"
+                            height="11"
+                            viewBox="-19.04 0 75.804 75.804"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <g transform="translate(-831.568 -384.448)">
+                            <path
+                                d="M833.068,460.252a1.5,1.5,0,0,1-1.061-2.561l33.557-33.56a2.53,2.53,0,0,0,0-3.564l-33.557-33.558a1.5,1.5,0,0,1,2.122-2.121l33.556,33.558a5.53,5.53,0,0,1,0,7.807l-33.557,33.56A1.5,1.5,0,0,1,833.068,460.252Z"
+                                fill="#ffcc08"
+                            />
+                            </g>
+                        </svg>
+                    </Link>
+                </tr>
+            </thead>
+
+            <tbody>
+                {teams?.map((team) => (
+                <PlayerItem />
+                ))}
+            </tbody>
+            <thead className="text-[#ffcc08] text-sm">
+                <tr>
+                <Link to="/" className="flex items-center">
+                        Yellow 
+                        <svg
+                            width="16"
+                            height="11"
+                            viewBox="-19.04 0 75.804 75.804"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <g transform="translate(-831.568 -384.448)">
+                            <path
+                                d="M833.068,460.252a1.5,1.5,0,0,1-1.061-2.561l33.557-33.56a2.53,2.53,0,0,0,0-3.564l-33.557-33.558a1.5,1.5,0,0,1,2.122-2.121l33.556,33.558a5.53,5.53,0,0,1,0,7.807l-33.557,33.56A1.5,1.5,0,0,1,833.068,460.252Z"
+                                fill="#ffcc08"
+                            />
+                            </g>
+                        </svg>
+                    </Link>
+                </tr>
+            </thead>
+
+            <tbody>
+                {teams?.map((team) => (
+                <PlayerItem />
+                ))}
+            </tbody>
             </table>
-            </div>:
+            </div> :  // {/*Toutnament stats for players who play Football*/}
+            <div className="overflow-x-auto">
+                <table className="w-full table-fixed border-collapse shadow-sm">
+    
+                <thead className="text-[#ffcc08] text-sm">
+                    <tr>
+                        <Link to="/" className="flex items-center">
+                            TDs
+                            <svg
+                                width="16"
+                                height="11"
+                                viewBox="-19.04 0 75.804 75.804"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <g transform="translate(-831.568 -384.448)">
+                                <path
+                                    d="M833.068,460.252a1.5,1.5,0,0,1-1.061-2.561l33.557-33.56a2.53,2.53,0,0,0,0-3.564l-33.557-33.558a1.5,1.5,0,0,1,2.122-2.121l33.556,33.558a5.53,5.53,0,0,1,0,7.807l-33.557,33.56A1.5,1.5,0,0,1,833.068,460.252Z"
+                                    fill="#ffcc08"
+                                />
+                                </g>
+                            </svg>
+                        </Link>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {teams?.map((team) => (
+                    <PlayerItem />
+                    ))}
+                </tbody>
+                </table>
+            </div>:  // {/*Toutnament stats for players who play soccer/football*/}
+
             <div className="overflow-x-auto">
             <table className="w-full border-collapse shadow-sm">
             
