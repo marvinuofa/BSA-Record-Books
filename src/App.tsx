@@ -10,7 +10,7 @@ function App() {
   return (
     <div className="bg-black min-h-screen py-10 ">
 
-      <div className="max-w-6xl mx-auto bg-neutral-900 text-white rounded-lg shadow-2xl shadow-[#ffcc08]/15 border border-neutral-800">
+      <div className="max-w-6xl mx-auto bg-neutral-900 text-white rounded-lg shadow-2xl shadow-[#ffcc08]/30 border border-neutral-800">
         
         <Navbar />
 
