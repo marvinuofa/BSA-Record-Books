@@ -5,6 +5,36 @@ import { TableItem } from "./TableItem"
 import { PlayerItem } from "./PlayerItem"
 import { Link } from "react-router"
 
+const rightArrow = (<svg
+    width="16"
+    height="11"
+    viewBox="-19.04 0 75.804 75.804"
+    xmlns="http://www.w3.org/2000/svg"
+>
+    <g transform="translate(-831.568 -384.448)">
+    <path
+        d="M833.068,460.252a1.5,1.5,0,0,1-1.061-2.561l33.557-33.56a2.53,2.53,0,0,0,0-3.564l-33.557-33.558a1.5,1.5,0,0,1,2.122-2.121l33.556,33.558a5.53,5.53,0,0,1,0,7.807l-33.557,33.56A1.5,1.5,0,0,1,833.068,460.252Z"
+        fill="#ffcc08"
+    />
+    </g>
+</svg>);
+
+export interface Player {
+    id: number
+    name: string
+    team: string
+    forty_dash: number
+    broad_jump: number
+    accuracy_drill: number
+    crossbar: number
+    tds: number
+    goals: number
+    assists: number
+    red_cards: number
+    yellow_cards: number
+  } 
+
+
 export interface Team {
     id: number
     team: string
@@ -40,7 +70,6 @@ const fetchTeams = async (
       .order("total_points", { ascending: false })
   
     if (error) throw new Error(error.message)
-    console.log(data)
   
     return data as Team[]
   }
@@ -67,12 +96,40 @@ const fetchTeams = async (
   
     return data as Sport[]
   }
+  const fetchPlayers = async (): Promise<Player[]> => {
+    const { data, error } = await supabase
+      .from("players")
+      .select("*")
+  
+    if (error) throw new Error(error.message)
+    console.log(data)
+  
+    return data as Player[]
+  }
+  const getTopPlayers = (
+    players: Player[],
+    stat: keyof Player,
+    direction: "min" | "max" = "max"
+  ) => {
+    const sorted = [...players].sort((a, b) =>
+      direction === "min"
+        ? (a[stat] as number) - (b[stat] as number)
+        : (b[stat] as number) - (a[stat] as number)
+    )
+
+    return sorted.slice(0, 3)
+  }
 
   export const StatsTable = () => {
     const [year, setYear] = useState(new Date().getFullYear())
     const [sport, setSport] = useState("Soccer")
     const [statCategory, setStatCategory] = useState("Players")
     const [competition, setCompetition] = useState("Combine")
+
+    const { data: players } = useQuery({
+        queryKey: ["players"],
+        queryFn: fetchPlayers
+      })
   
     const { data: teams, isLoading, error } = useQuery({
       queryKey: ["teams", year, sport],
@@ -169,110 +226,73 @@ const fetchTeams = async (
   
             <thead className="text-[#ffcc08] text-sm">
                 <tr>
-                    <Link to="/" className="flex items-center">
-                        40 Yard
-                        <svg
-                            width="16"
-                            height="11"
-                            viewBox="-19.04 0 75.804 75.804"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <g transform="translate(-831.568 -384.448)">
-                            <path
-                                d="M833.068,460.252a1.5,1.5,0,0,1-1.061-2.561l33.557-33.56a2.53,2.53,0,0,0,0-3.564l-33.557-33.558a1.5,1.5,0,0,1,2.122-2.121l33.556,33.558a5.53,5.53,0,0,1,0,7.807l-33.557,33.56A1.5,1.5,0,0,1,833.068,460.252Z"
-                                fill="#ffcc08"
-                            />
-                            </g>
-                        </svg>
-                    </Link>
+                    <th>
+                        <Link to="/" className="flex items-center">
+                            40 Yard
+                            {rightArrow}
+                        </Link>
+                    </th>
                 </tr>
+                
             </thead>
-
             <tbody>
-                {teams?.map((team) => (
-                <PlayerItem />
-                ))}
+                {players &&
+                    getTopPlayers(players, "forty_dash").map((player, index) => (
+                    <PlayerItem key={player.id} player={player} stat="forty_dash" rank = {index+ 1} />
+                    ))}
             </tbody>
 
             <thead className="text-[#ffcc08] text-sm">
                 <tr>
-                <Link to="/" className="flex items-center ">
-                        Broad Jump
-                        <svg
-                            width="16"
-                            height="11"
-                            viewBox="-19.04 0 75.804 75.804"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <g transform="translate(-831.568 -384.448)">
-                            <path
-                                d="M833.068,460.252a1.5,1.5,0,0,1-1.061-2.561l33.557-33.56a2.53,2.53,0,0,0,0-3.564l-33.557-33.558a1.5,1.5,0,0,1,2.122-2.121l33.556,33.558a5.53,5.53,0,0,1,0,7.807l-33.557,33.56A1.5,1.5,0,0,1,833.068,460.252Z"
-                                fill="#ffcc08"
-                            />
-                            </g>
-                        </svg>
-                    </Link>
+                     <th>
+                        <Link to="/" className="flex items-center mt-8">
+                            Broad Jump
+                            {rightArrow}
+                        </Link>
+                    </th>
                 </tr>
             </thead>
 
             <tbody>
-                {teams?.map((team) => (
-                <PlayerItem />
-                ))}
+                {players &&
+                    getTopPlayers(players, "broad_jump").map((player, index) => (
+                    <PlayerItem key={player.id} player={player} stat="broad_jump" rank = {index+ 1}/>
+                    ))}
             </tbody>
             <thead className="text-[#ffcc08] text-sm">
                 <tr>
-                <Link to="/" className="flex items-center">
-                        Accuracy Drill
-                        <svg
-                            width="16"
-                            height="11"
-                            viewBox="-19.04 0 75.804 75.804"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <g transform="translate(-831.568 -384.448)">
-                            <path
-                                d="M833.068,460.252a1.5,1.5,0,0,1-1.061-2.561l33.557-33.56a2.53,2.53,0,0,0,0-3.564l-33.557-33.558a1.5,1.5,0,0,1,2.122-2.121l33.556,33.558a5.53,5.53,0,0,1,0,7.807l-33.557,33.56A1.5,1.5,0,0,1,833.068,460.252Z"
-                                fill="#ffcc08"
-                            />
-                            </g>
-                        </svg>
-                    </Link>
+                    <th>
+                        <Link to="/" className="flex items-center mt-8">
+                            Crossbar Challenge
+                            {rightArrow}
+                        </Link>
+                    </th>
                 </tr>
             </thead>
 
             <tbody>
-                {teams?.map((team) => (
-                <PlayerItem />
-                ))}
+                {players &&
+                    getTopPlayers(players, "crossbar").map((player, index) => (
+                    <PlayerItem key={player.id} player={player} stat="crossbar" rank = {index+ 1}/>
+                    ))}
             </tbody>
             <thead className="text-[#ffcc08] text-sm">
                 <tr>
-                <Link to="/" className="flex items-center">
-                        CrossBar Challenge
-                        <svg
-                            width="16"
-                            height="11"
-                            viewBox="-19.04 0 75.804 75.804"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <g transform="translate(-831.568 -384.448)">
-                            <path
-                                d="M833.068,460.252a1.5,1.5,0,0,1-1.061-2.561l33.557-33.56a2.53,2.53,0,0,0,0-3.564l-33.557-33.558a1.5,1.5,0,0,1,2.122-2.121l33.556,33.558a5.53,5.53,0,0,1,0,7.807l-33.557,33.56A1.5,1.5,0,0,1,833.068,460.252Z"
-                                fill="#ffcc08"
-                            />
-                            </g>
-                        </svg>
-                    </Link>
+                    <th>
+                        <Link to="/" className="flex items-center mt-8">
+                            Accuracy Drill
+                            {rightArrow}
+                        </Link>
+                    </th>
                 </tr>
             </thead>
 
             <tbody>
-                {teams?.map((team) => (
-                <PlayerItem />
-                ))}
+                {players &&
+                    getTopPlayers(players, "accuracy_drill").map((player, index) => (
+                    <PlayerItem key={player.id} player={player} stat="accuracy_drill" rank = {index+ 1} />
+                    ))}
             </tbody>
-
             </table>
             </div> 
             
@@ -283,109 +303,73 @@ const fetchTeams = async (
   
             <thead className="text-[#ffcc08] text-sm">
                 <tr>
-                    <Link to="/" className="flex items-center">
-                        Goals
-                        <svg
-                            width="16"
-                            height="11"
-                            viewBox="-19.04 0 75.804 75.804"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <g transform="translate(-831.568 -384.448)">
-                            <path
-                                d="M833.068,460.252a1.5,1.5,0,0,1-1.061-2.561l33.557-33.56a2.53,2.53,0,0,0,0-3.564l-33.557-33.558a1.5,1.5,0,0,1,2.122-2.121l33.556,33.558a5.53,5.53,0,0,1,0,7.807l-33.557,33.56A1.5,1.5,0,0,1,833.068,460.252Z"
-                                fill="#ffcc08"
-                            />
-                            </g>
-                        </svg>
-                    </Link>
+                    <th>
+                        <Link to="/" className="flex items-center ">
+                            Goals
+                            {rightArrow}
+                        </Link>
+                    </th>
                 </tr>
             </thead>
 
             <tbody>
-                {teams?.map((team) => (
-                <PlayerItem />
-                ))}
+                {players &&
+                    getTopPlayers(players, "goals").map((player, index) => (
+                    <PlayerItem key={player.id} player={player} stat="goals" rank = {index+ 1}/>
+                    ))}
+            </tbody>
+
+            <thead className="text-[#ffcc08] text-sm ">
+                <tr>
+                    <th>
+                        <Link to="/" className="flex items-center mt-8">
+                            Assists 
+                            {rightArrow}
+                        </Link>
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {players &&
+                    getTopPlayers(players, "assists").map((player, index) => (
+                    <PlayerItem key={player.id} player={player} stat="assists" rank = {index+ 1}/>
+                    ))}
             </tbody>
 
             <thead className="text-[#ffcc08] text-sm">
                 <tr>
-                <Link to="/" className="flex items-center ">
-                        Assists
-                        <svg
-                            width="16"
-                            height="11"
-                            viewBox="-19.04 0 75.804 75.804"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <g transform="translate(-831.568 -384.448)">
-                            <path
-                                d="M833.068,460.252a1.5,1.5,0,0,1-1.061-2.561l33.557-33.56a2.53,2.53,0,0,0,0-3.564l-33.557-33.558a1.5,1.5,0,0,1,2.122-2.121l33.556,33.558a5.53,5.53,0,0,1,0,7.807l-33.557,33.56A1.5,1.5,0,0,1,833.068,460.252Z"
-                                fill="#ffcc08"
-                            />
-                            </g>
-                        </svg>
-                    </Link>
+                    <th>
+                        <Link to="/" className="flex items-center mt-8">
+                            Yellow Cards
+                            {rightArrow}
+                        </Link>
+                    </th>
                 </tr>
             </thead>
 
             <tbody>
-                {teams?.map((team) => (
-                <PlayerItem />
-                ))}
-            </tbody>
-
-            <thead className="text-[#ffcc08] text-sm">
-                <tr>
-                <Link to="/" className="flex items-center ">
-                        Red Cards
-                        <svg
-                            width="16"
-                            height="11"
-                            viewBox="-19.04 0 75.804 75.804"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <g transform="translate(-831.568 -384.448)">
-                            <path
-                                d="M833.068,460.252a1.5,1.5,0,0,1-1.061-2.561l33.557-33.56a2.53,2.53,0,0,0,0-3.564l-33.557-33.558a1.5,1.5,0,0,1,2.122-2.121l33.556,33.558a5.53,5.53,0,0,1,0,7.807l-33.557,33.56A1.5,1.5,0,0,1,833.068,460.252Z"
-                                fill="#ffcc08"
-                            />
-                            </g>
-                        </svg>
-                    </Link>
-                </tr>
-            </thead>
-
-            <tbody>
-                {teams?.map((team) => (
-                <PlayerItem />
-                ))}
+                {players &&
+                    getTopPlayers(players, "yellow_cards").map((player, index) => (
+                    <PlayerItem key={player.id} player={player} stat="yellow_cards" rank = {index+ 1} />
+                    ))}
             </tbody>
             <thead className="text-[#ffcc08] text-sm">
                 <tr>
-                <Link to="/" className="flex items-center">
-                        Yellow 
-                        <svg
-                            width="16"
-                            height="11"
-                            viewBox="-19.04 0 75.804 75.804"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <g transform="translate(-831.568 -384.448)">
-                            <path
-                                d="M833.068,460.252a1.5,1.5,0,0,1-1.061-2.561l33.557-33.56a2.53,2.53,0,0,0,0-3.564l-33.557-33.558a1.5,1.5,0,0,1,2.122-2.121l33.556,33.558a5.53,5.53,0,0,1,0,7.807l-33.557,33.56A1.5,1.5,0,0,1,833.068,460.252Z"
-                                fill="#ffcc08"
-                            />
-                            </g>
-                        </svg>
-                    </Link>
+                    <th>
+                        <Link to="/" className="flex items-center mt-8">
+                            Red Cards
+                            {rightArrow}
+                        </Link>
+                    </th>
                 </tr>
             </thead>
 
             <tbody>
-                {teams?.map((team) => (
-                <PlayerItem />
-                ))}
+                {players &&
+                    getTopPlayers(players, "red_cards").map((player, index) => (
+                    <PlayerItem key={player.id} player={player} stat="red_cards" rank = {index+ 1}/>
+                    ))}
             </tbody>
             </table>
             </div> :  // {/*Toutnament stats for players who play Football*/}
@@ -394,29 +378,20 @@ const fetchTeams = async (
     
                 <thead className="text-[#ffcc08] text-sm">
                     <tr>
-                        <Link to="/" className="flex items-center">
-                            TDs
-                            <svg
-                                width="16"
-                                height="11"
-                                viewBox="-19.04 0 75.804 75.804"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <g transform="translate(-831.568 -384.448)">
-                                <path
-                                    d="M833.068,460.252a1.5,1.5,0,0,1-1.061-2.561l33.557-33.56a2.53,2.53,0,0,0,0-3.564l-33.557-33.558a1.5,1.5,0,0,1,2.122-2.121l33.556,33.558a5.53,5.53,0,0,1,0,7.807l-33.557,33.56A1.5,1.5,0,0,1,833.068,460.252Z"
-                                    fill="#ffcc08"
-                                />
-                                </g>
-                            </svg>
-                        </Link>
+                        <th>
+                            <Link to="/" className="flex items-center">
+                                Tds
+                                {rightArrow}
+                            </Link>
+                        </th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    {teams?.map((team) => (
-                    <PlayerItem />
-                    ))}
+                    {players &&
+                        getTopPlayers(players, "tds").map((player, index) => (
+                        <PlayerItem key={player.id} player={player} stat="tds" rank = {index+ 1} />
+                        ))}
                 </tbody>
                 </table>
             </div>:  // {/*Toutnament stats for players who play soccer/football*/}

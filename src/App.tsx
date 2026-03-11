@@ -2,9 +2,9 @@ import { Home } from './pages/Home'
 import { Route, Routes } from 'react-router'
 import { Navbar } from './components/Navbar'
 import { Leaderboard } from './pages/Leaderboard'
-import { Players } from './pages/Players'
 import { Stats } from './pages/Stats'
 import { Fixtures } from './pages/Fixtures'
+import { Live } from './pages/Live'
 
 function App() {
   return (
@@ -17,10 +17,11 @@ function App() {
         <main className="p-6">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/players" element={<Players />} />
+            <Route path="/Live" element={<Live/>} />
             <Route path="/leaderboard" element={<Leaderboard />} />
             <Route path="/stats" element={<Stats />} />
             <Route path="/fixtures" element={<Fixtures />} />
+
           </Routes>
         </main>
 

@@ -1,6 +1,19 @@
 import { useState } from "react"
 import { Link } from "react-router"
 
+const VideoIcon = (
+  <svg
+    className="h-5"
+    viewBox="100 25 800 900"
+  >
+    <title>Video</title>
+    <g fill="#ffcc08" fillRule="evenodd">
+      <path d="M768 304.64v414.72H256V304.64h512zm-460.8 51.301v312.94h409.6V355.94H307.2z" />
+      <path d="M604.086 513.28l-142.988-96v192z" />
+    </g>
+  </svg>
+);
+
 export const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -20,8 +33,10 @@ export const Navbar = () => {
           <div className="hidden md:flex gap-6 text-sm font-medium">
             <Link className="hover:text-[#ffcc08] transition-colors" to="/">Home</Link>
             <Link className="hover:text-[#ffcc08] transition-colors" to="/fixtures">Fixtures</Link>
+            <Link className="flex items-center hover:text-[#ffcc08] transition-colors" to="/Live">Live {VideoIcon}</Link>
             <Link className="hover:text-[#ffcc08] transition-colors" to="/stats">Stats</Link>
             <Link className="hover:text-[#ffcc08] transition-colors" to="/leaderboard">Leaderboard</Link>
+            
           </div>
 
         </div>
@@ -53,6 +68,7 @@ export const Navbar = () => {
           <div className="max-w-6xl mx-auto flex flex-col gap-3 py-4 px-4">
             <Link className="hover:text-[#ffcc08]" to="/">Home</Link>
             <Link className="hover:text-[#ffcc08]" to="/fixtures">Fixtures</Link>
+            <Link className="flex items-center hover:text-[#ffcc08] transition-colors" to="/Live">Live {VideoIcon}</Link>
             <Link className="hover:text-[#ffcc08]" to="/stats">Stats</Link>
             <Link className="hover:text-[#ffcc08]" to="/leaderboard">Leaderboard</Link>
           </div>

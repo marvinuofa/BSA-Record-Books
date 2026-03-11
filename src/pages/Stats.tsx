@@ -4,7 +4,7 @@ export const Stats = () => {
     return (
         <div> 
             <StatsTable/> 
-            
+    
         </div>
     )
 }
