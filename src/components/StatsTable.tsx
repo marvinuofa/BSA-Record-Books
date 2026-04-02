@@ -49,15 +49,15 @@ export interface Team {
     point_diff: number
   }
   
-  interface Year {
+export interface Year {
     year: number
   }
   
-  interface Sport {
+export interface Sport {
     name: string
   }
 
-const fetchTeams = async (
+export const fetchTeams = async (
     year: number,
     sport: string
   ): Promise<Team[]> => {
@@ -74,7 +74,7 @@ const fetchTeams = async (
     return data as Team[]
   }
   
-  const fetchYears = async (): Promise<Year[]> => {
+export const fetchYears = async (): Promise<Year[]> => {
   
     const { data, error } = await supabase
       .from("seasons")
@@ -86,7 +86,7 @@ const fetchTeams = async (
     return data as Year[]
   }
   
-  const fetchSports = async (): Promise<Sport[]> => {
+export const fetchSports = async (): Promise<Sport[]> => {
   
     const { data, error } = await supabase
       .from("sports")
@@ -96,7 +96,7 @@ const fetchTeams = async (
   
     return data as Sport[]
   }
-  const fetchPlayers = async (): Promise<Player[]> => {
+export const fetchPlayers = async (): Promise<Player[]> => {
     const { data, error } = await supabase
       .from("players")
       .select("*")
@@ -106,7 +106,7 @@ const fetchTeams = async (
   
     return data as Player[]
   }
-  const getTopPlayers = (
+export const getTopPlayers = (
     players: Player[],
     stat: keyof Player,
     direction: "min" | "max" = "max"
@@ -150,7 +150,7 @@ const fetchTeams = async (
     if (error) return <div className="text-center py-10 text-red-500">Error loading standings</div>
   
     return (
-        <div className="max-w-6xl mx-auto px-4 py-8">
+        <div className="max-w-2xl mx-auto px-4 py-8">
     
             {/* Filters */}
             <div className="mb-6 flex items-center justify-between gap-4">
@@ -227,7 +227,7 @@ const fetchTeams = async (
             <thead className="text-[#ffcc08] text-sm">
                 <tr>
                     <th>
-                        <Link to="/" className="flex items-center">
+                        <Link to="/Forty" className="flex items-center">
                             40 Yard
                             {rightArrow}
                         </Link>
@@ -237,7 +237,7 @@ const fetchTeams = async (
             </thead>
             <tbody>
                 {players &&
-                    getTopPlayers(players, "forty_dash").map((player, index) => (
+                    getTopPlayers(players, "forty_dash", "min").map((player, index) => (
                     <PlayerItem key={player.id} player={player} stat="forty_dash" rank = {index+ 1} />
                     ))}
             </tbody>
@@ -245,7 +245,7 @@ const fetchTeams = async (
             <thead className="text-[#ffcc08] text-sm">
                 <tr>
                      <th>
-                        <Link to="/" className="flex items-center mt-8">
+                        <Link to="/Broadjump" className="flex items-center mt-8">
                             Broad Jump
                             {rightArrow}
                         </Link>
@@ -262,7 +262,7 @@ const fetchTeams = async (
             <thead className="text-[#ffcc08] text-sm">
                 <tr>
                     <th>
-                        <Link to="/" className="flex items-center mt-8">
+                        <Link to="/Crossbar" className="flex items-center mt-8">
                             Crossbar Challenge
                             {rightArrow}
                         </Link>
@@ -279,7 +279,7 @@ const fetchTeams = async (
             <thead className="text-[#ffcc08] text-sm">
                 <tr>
                     <th>
-                        <Link to="/" className="flex items-center mt-8">
+                        <Link to="/Qb" className="flex items-center mt-8">
                             Accuracy Drill
                             {rightArrow}
                         </Link>
@@ -304,7 +304,7 @@ const fetchTeams = async (
             <thead className="text-[#ffcc08] text-sm">
                 <tr>
                     <th>
-                        <Link to="/" className="flex items-center ">
+                        <Link to="/Goals" className="flex items-center ">
                             Goals
                             {rightArrow}
                         </Link>
@@ -322,7 +322,7 @@ const fetchTeams = async (
             <thead className="text-[#ffcc08] text-sm ">
                 <tr>
                     <th>
-                        <Link to="/" className="flex items-center mt-8">
+                        <Link to="/Assists" className="flex items-center mt-8">
                             Assists 
                             {rightArrow}
                         </Link>
@@ -340,7 +340,7 @@ const fetchTeams = async (
             <thead className="text-[#ffcc08] text-sm">
                 <tr>
                     <th>
-                        <Link to="/" className="flex items-center mt-8">
+                        <Link to="/Yellows" className="flex items-center mt-8">
                             Yellow Cards
                             {rightArrow}
                         </Link>
@@ -357,7 +357,7 @@ const fetchTeams = async (
             <thead className="text-[#ffcc08] text-sm">
                 <tr>
                     <th>
-                        <Link to="/" className="flex items-center mt-8">
+                        <Link to="/Reds" className="flex items-center mt-8">
                             Red Cards
                             {rightArrow}
                         </Link>
@@ -379,7 +379,7 @@ const fetchTeams = async (
                 <thead className="text-[#ffcc08] text-sm">
                     <tr>
                         <th>
-                            <Link to="/" className="flex items-center">
+                            <Link to="/Tds" className="flex items-center">
                                 Tds
                                 {rightArrow}
                             </Link>

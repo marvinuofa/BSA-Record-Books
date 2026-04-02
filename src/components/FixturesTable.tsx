@@ -77,7 +77,7 @@ export const FixturesTable = () => {
 
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8">
+    <div className="mx-auto max-w-2xl px-4 py-8">
       <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
         <h1 className="text-2xl font-bold">Fixtures</h1>
   
