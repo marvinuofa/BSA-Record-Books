@@ -116,7 +116,7 @@ export const Home = () => {
       
             <p className="mx-auto mt-1 max-w-3xl text-sm leading-7 text-neutral-300 md:text-base">
               <span className="font-semibold text-white">
-                Who produces the better athlete ?
+                Who has the better athlete ?
               </span>
             </p>
           </div>
