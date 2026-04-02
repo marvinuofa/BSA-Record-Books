@@ -1,11 +1,3 @@
-const navItems = [
-  { label: "Overview", href: "#overview" },
-  { label: "Announcements", href: "#announcements" },
-  { label: "Combine", href: "#combine" },
-  { label: "Championships", href: "#championships" },
-  { label: "Teams", href: "#teams" },
-  { label: "Rules", href: "#rules" },
-];
 const announcements = [
   {
     title: "Team Sign-Up",

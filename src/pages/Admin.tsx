@@ -66,24 +66,6 @@ const fetchTeams = async (
     return data as Sport[]
   }
 
-  const updateTeam = async (team: Team) => {
-    const { error } = await supabase
-      .from("standings")
-      .update({
-        wins: team.wins,
-        losses: team.losses,
-        draws: team.draws,
-        points_for: team.points_for,
-        points_against: team.points_against,
-        point_diff: team.point_diff,
-        total_points: team.total_points,
-      })
-      .eq("id", team.id)
-  
-    if (error) throw new Error(error.message)
-  
-    return team
-  } 
   
   export const Admin = () => {
     const [year, setYear] = useState(new Date().getFullYear())
