@@ -26,7 +26,6 @@ const checkIsAdmin = async (email: string): Promise<boolean> => {
     .eq("email", email)
     .single();
 
-  console.log(userData)
 
   if (userError || !userData) {
     return false;
@@ -47,6 +46,7 @@ const checkIsAdmin = async (email: string): Promise<boolean> => {
 export const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { signInWithGit, signOut, user } = useAuth();
+
 
   const { data: isAdmin = false, isLoading, error } = useQuery({
     queryKey: ["isAdmin", user?.email],
@@ -85,13 +85,21 @@ export const Navbar = () => {
         </div>
 
         <div className="ml-auto flex items-center">
+          {user?(<Link to="/">
+            <img
+              src={user.user_metadata.avatar_url}
+              alt="User banner"
+              className="h-8 w-auto rounded-full"
+            />
+          </Link>):(
           <Link to="/">
             <img
               src="/photo.png"
               alt="UABSA logo"
-              className="h-8 w-auto"
+              className="h-8 w-auto rounded-full"
             />
-          </Link>
+          </Link>)
+        }
         </div>
 
         <button

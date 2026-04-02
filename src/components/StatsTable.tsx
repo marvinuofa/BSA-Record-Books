@@ -106,17 +106,24 @@ export const fetchPlayers = async (): Promise<Player[]> => {
   
     return data as Player[]
   }
-export const getTopPlayers = (
+  export const getTopPlayers = (
     players: Player[],
     stat: keyof Player,
     direction: "min" | "max" = "max"
   ) => {
-    const sorted = [...players].sort((a, b) =>
-      direction === "min"
-        ? (a[stat] as number) - (b[stat] as number)
-        : (b[stat] as number) - (a[stat] as number)
-    )
-
+    const sorted = [...players].sort((a, b) => {
+      const aValue = a[stat]
+      const bValue = b[stat]
+  
+      if (aValue == null && bValue == null) return 0
+      if (aValue == null) return 1
+      if (bValue == null) return -1
+  
+      return direction === "min"
+        ? (aValue as number) - (bValue as number)
+        : (bValue as number) - (aValue as number)
+    })
+  
     return sorted.slice(0, 3)
   }
 

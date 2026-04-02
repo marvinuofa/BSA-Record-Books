@@ -6,11 +6,17 @@ const getTopPlayers = (
     players: Player[],
     stat: keyof Player,
   ) => {
-    const sorted = [...players].sort((a, b) =>
-        (a[stat] as number) - (b[stat] as number)
-    
-    )
-
+    const sorted = [...players].sort((a, b) => {
+      const aValue = a[stat]
+      const bValue = b[stat]
+  
+      if (aValue == null && bValue == null) return 0
+      if (aValue == null) return 1
+      if (bValue == null) return -1
+  
+      return (aValue as number) - (bValue as number)
+    })
+  
     return sorted
   }
 
