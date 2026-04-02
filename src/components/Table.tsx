@@ -89,7 +89,7 @@ const fetchTeams = async (
     if (error) return <div className="text-center py-10 text-red-500">Error loading standings</div>
   
     return (
-      <div className="max-w-6xl mx-auto px-4 py-8">
+      <div className="max-w-3xl mx-auto px-4 py-8">
 
         {/* Filters */}
         <div className="mb-6 flex items-center justify-between gap-4">
