@@ -14,7 +14,7 @@ const announcements = [
   {
     title: "Case Competition",
     content: "A chance to contribute academically if you’re not as into sports through our case competition.",
-    link: "#",
+    link: "https://docs.google.com/forms/d/e/1FAIpQLSfMZc1syzjCce9E6ORu-kQx7r4skgwDNmSHIf8fjZLSMk7INQ/viewform",
     linkLabel: "Sign up here",
   },
 ];
