@@ -51,7 +51,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       return
     }
   
-    window.location.replace("/")
   }
 
   return (

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router";
-/* import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "../context/AuthContext";
-import { supabase } from "../supabase-client"; */
+import { supabase } from "../supabase-client";
 
 const VideoIcon = (
   <svg
@@ -19,7 +19,7 @@ const VideoIcon = (
 
 
 
-/* const checkIsAdmin = async (email: string): Promise<boolean> => {
+const checkIsAdmin = async (email: string): Promise<boolean> => {
   const { data: userData, error: userError } = await supabase
     .from("users")
     .select("id")
@@ -43,19 +43,19 @@ const VideoIcon = (
 
   return adminData.length > 0;
 };
- */
+
 export const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-/*   const { signInWithGit, signOut, user } = useAuth();
- */
-  /* const { data: isAdmin = false, isLoading, error } = useQuery({
+  const { signInWithGit, signOut, user } = useAuth();
+
+  const { data: isAdmin = false, isLoading, error } = useQuery({
     queryKey: ["isAdmin", user?.email],
     queryFn: async () => {
       if (!user?.email) return false;
       return checkIsAdmin(user.email);
     },
     enabled: !!user?.email,
-  }); */
+  });
 
   return (
     <nav className="border-b border-[#ffcc08] shadow-md">
@@ -72,7 +72,7 @@ export const Navbar = () => {
             <Link className="hover:text-[#ffcc08] transition-colors" to="/stats">Stats</Link>
             <Link className="hover:text-[#ffcc08] transition-colors" to="/leaderboard">Leaderboard</Link>
 
-           {/*  {!isLoading && !error && isAdmin && (
+            {!isLoading && !error && isAdmin && (
               <Link className="hover:text-[#ffcc08]" to="/Admin">Admin</Link>
             )}
 
@@ -80,7 +80,7 @@ export const Navbar = () => {
               <button onClick={signOut}>Sign Out</button>
             ) : (
               <button onClick={signInWithGit}>Sign In</button>
-            )} */}
+            )}
           </div>
         </div>
 
@@ -111,9 +111,9 @@ export const Navbar = () => {
             <Link className="hover:text-[#ffcc08]" to="/stats">Stats</Link>
             <Link className="hover:text-[#ffcc08]" to="/leaderboard">Leaderboard</Link>
 
-           {/*  {!isLoading && !error && isAdmin && (
+            {!isLoading && !error && isAdmin && (
               <Link className="hover:text-[#ffcc08]" to="/Admin">Admin</Link>
-            )} */}
+            )}
           </div>
         </div>
       )}
