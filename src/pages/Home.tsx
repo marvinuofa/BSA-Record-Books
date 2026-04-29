@@ -1,22 +1,21 @@
 const announcements = [
   {
-    title: "Team Sign-Up",
-    content: "Create a team with friends or sign up as a free-agent. Each team can have a maximum of 10 players and minimum of 7.",
-    link: "https://docs.google.com/forms/d/e/1FAIpQLScn9NDLzYcxjugFWKLWRcJm5fRrf61fwhd5i2mbfL42yuvdYA/viewform?usp=dialog",
-    linkLabel: "Sign up here",
+    title: "Schedule & Attendance",
+    content: "Teams must be on the correct pitch at the scheduled time. Arriving more than 3 min late will result in a forfeit and a 3–0/21-0 win for the opposing team. All participants must sign the waiver before competing.",
+    link: "https://bsa-record-books-3.onrender.com/fixtures",
+    linkLabel: "Fixtures",
   },
   {
-    title: "Referee Sign-Up",
-    content: "We are looking for 4 referees. Candidates must to have knowledge on Football/Soccer or be willing to learn.",
-    link: "https://docs.google.com/forms/d/e/1FAIpQLScw-jPSNb9plhyZtCvecacnWXvTZ8ltvcpoHVllNryXy6C91Q/viewform?usp=dialog",
-    linkLabel: "Sign up here",
+    title: "Waivers",
+    content: "All participants must complete the waiver before competing. Players who have not signed the waiver will not be allowed to participate.",
+    link: "https://waiver.smartwaiver.com/e/YgMJ334nuZsTsQQ3gzJjpG/",
+    linkLabel: "Sign Waiver",
   },
   {
-    title: "Case Competition",
-    content: "A chance to contribute academically if you’re not as into sports through our case competition.",
-    link: "https://docs.google.com/forms/d/e/1FAIpQLSfMZc1syzjCce9E6ORu-kQx7r4skgwDNmSHIf8fjZLSMk7INQ/viewform",
-    linkLabel: "Sign up here",
+    title: "Dress Code",
+    content: "For soccer players, please bring a black and a white shirt so we can easily distinguish between the two teams.",
   },
+
 ];
 
 const combineEvents = [
@@ -27,31 +26,25 @@ const combineEvents = [
 ];
 
 const teamInfo = [
-  "Teams must complete registration before the deadline.",
+  "All player have to sign the waiver before bing allowed to particpate.",
   "Players should arrive early for check-in and warm-up.",
   "Schedules and bracket updates will be posted in the announcement section.",
   "All participants are expected to compete respectfully and follow event staff directions.",
 ];
 
-const tournamentStructure = [
-  "Both sports use a group stage followed by knockout rounds.",
-  "Teams earn points in group play to determine standings.",
-  "Top teams advance to the playoff bracket.",
-  "Final match winners are crowned event champions.",
-];
 
 const flagFootballRules = [
   "7v7 format",
-  "Group stage + knockout rounds",
-  "Timed games",
-  "Flag pulls replace tackles",
-  "Roster and possession rules can be added once finalized",
+  "Group stage + 1 final game between top 2 teams ",
+  "20 minute games (team can decide to have a break within 20 mins)",
+  "Please pull flages do not tackle",
+  "We will be playing Official flag football rules",
 ];
 
 const soccerRules = [
   "7v7 format",
-  "Group stage + knockout rounds",
-  "Timed games",
+  "Group stage + knockout rounds(penaly kick to settle ties)",
+  "10 minute games",
   "Standard small-sided soccer rules apply",
   "Teams will share a point if games are tied at end of regulation",
 ];
@@ -149,11 +142,11 @@ export const Home = () => {
           </div>
         </Section>
 
-        <Section title="Phase 1: The Combine Challenges">
+        <Section title="The Combine Challenges">
             <p className="m-2 text-sm leading-7 text-neutral-300">
              Each drill produces a <span className="font-semibold text-white">Male Champion</span> and a{" "}
               <span className="font-semibold text-white">Female Champion</span>. Each winner
-              receives a <span className="font-semibold text-[#ffcc08]">$25 prize</span>.
+              receives a <span className="font-semibold text-[#ffcc08]">$20 prize</span>.
             </p>
 
           <div className="mt-6 grid gap-4 md:grid-cols-2">
@@ -170,7 +163,7 @@ export const Home = () => {
       
         </Section>
 
-        <Section title="Phase 2: 7v7 Championships">
+        <Section title="7v7 Championships">
           <div className="grid gap-4 md:grid-cols-2">
             <div className="rounded-[1.5rem] border border-neutral-800 bg-neutral-950 p-5">
               <h3 className="text-l font-bold">Flag Football Tournament</h3>
@@ -188,16 +181,6 @@ export const Home = () => {
           <InfoList items={teamInfo} />
         </Section>
 
-        <Section title="Tournament Structure">
-          <InfoList items={tournamentStructure} />
-
-          <div className="mt-6 rounded-[1.5rem] border border-neutral-800 bg-neutral-950 p-5">
-            <h3 className="text-lg font-semibold text-white">Game Timing</h3>
-            <p className="mt-2 text-sm leading-6 text-neutral-300">
-              Two halves, 10 minute an half, running clock, short halftime, and knockout games going. 
-            </p>
-          </div>
-        </Section>
 
         <Section title="Rules">
           <div className="grid gap-6 md:grid-cols-2">
